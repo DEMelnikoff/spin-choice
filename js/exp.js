@@ -257,7 +257,7 @@ const exp = (function() {
 
         const speedText1 = (weight == 'heavy') ? "<b>as fast as possible</b>" : "<b>at a moderate pace</b>";
         const speedText2 = (weight == 'heavy') ? "If you do not tap your right arrow as fast as possible, the wheel will not build enough momentum to spin." : "If you tap your right arrow either too quickly or too slowly, the wheel will not build enough momentum to spin.";
-        const targetPressTime = (weight == 'heavy') ? [0, .18] : [.2, .75];
+        const targetPressTime = (weight == 'heavy') ? [0, .2] : [.2, .75];
         const stimuli = [
             { prompt: `<div class='spin-instructions'>
             <p>This wheel is <b>${weight}</b>. To spin it, repeatedly tap your right arrow ${speedText1} to build momentum.
@@ -360,7 +360,7 @@ const exp = (function() {
         type: jsPsychCanvasButtonResponse,
         stimulus: function(c, spinnerData) {
             const chosenWheel = (jsPsych.data.getLastTrialData().select('response').values[0] == 0) ? jsPsych.timelineVariable('heavy') : jsPsych.timelineVariable('light');
-            const targetPressTime = (jsPsych.data.getLastTrialData().select('response').values[0] == 0) ? [0, .18] : [.2, .75];
+            const targetPressTime = (jsPsych.data.getLastTrialData().select('response').values[0] == 0) ? [0, .2] : [.2, .75];
             const chosenSectors = getChosenSectors(chosenWheel);
             return dmPsych.spinner(c, spinnerData, chosenSectors, targetPressTime, 0, settings.nSpins, scoreTracker);
         },
