@@ -330,7 +330,7 @@
 }
 
 .jspsych-content {
-  max-width: 95%;
+  max-width: 900px;
   /* this is mainly an IE 10-11 fix */
   text-align: center;
   margin: auto;
@@ -630,5 +630,22 @@
   color: rgb(109, 112, 114);
   font-size: 16px;
   text-align: left;
+}
+
+.spinner-img {
+  height: 300px;
+  width: 300px;
+}
+
+.spinner-container {
+  display:table-cell;
+  padding: 15px;
+}
+
+.spinner-title {
+  display:block;
+  font-size: 30px;
+  color: black;
+  margin:27px;
 }
 
