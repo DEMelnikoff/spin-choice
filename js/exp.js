@@ -382,7 +382,7 @@ const exp = (function() {
         canvas_size: [500, 500],
         show_scoreboard: true,
         post_trial_gap: 1000,
-        data: { heavy: jsPsych.timelineVariable('heavy'), light: jsPsych.timelineVariable('light'), heavy_mi: jsPsych.timelineVariable('heavy_mi'), light_mi: jsPsych.timelineVariable('light_mi'), ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd') }
+        data: { heavy: jsPsych.timelineVariable('heavy'), light: jsPsych.timelineVariable('light'), heavy_mi: jsPsych.timelineVariable('heavy_mi'), light_mi: jsPsych.timelineVariable('light_mi'), ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd') },
         on_finish: function(data) {
             scoreTracker = data.score;
             data.time = time;
