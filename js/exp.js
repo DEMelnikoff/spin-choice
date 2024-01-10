@@ -364,15 +364,16 @@ const exp = (function() {
         data: { heavy: jsPsych.timelineVariable('heavy'), light: jsPsych.timelineVariable('light'), heavy_mi: jsPsych.timelineVariable('heavy_mi'), light_mi: jsPsych.timelineVariable('light_mi'), ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd') },
         on_finish: function(data) {
             data.time = time;
+            data.choice = settings.choices[data.response];
+            console.log(settings.choices[data.response]);
         }
     };
 
     const spin = {
         type: jsPsychCanvasButtonResponse,
         stimulus: function(c, spinnerData) {
-            const choiceIdx = jsPsych.data.getLastTrialData().select('response').values[0];
-            const chosenWheel = (settings.choices[choiceIdx] == 'Heavy') ? jsPsych.timelineVariable('heavy') : jsPsych.timelineVariable('light');
-            const targetPressTime = (settings.choices[choiceIdx] == 'Heavy') ? [0, .2] : [.2, .75];
+            const chosenWheel = (jsPsych.data.getLastTrialData().select('choice').values[0] == 'Heavy') ? jsPsych.timelineVariable('heavy') : jsPsych.timelineVariable('light');
+            const targetPressTime = (jsPsych.data.getLastTrialData().select('choice').values[0] == 'Heavy') ? [0, .2] : [.2, .75];
             const chosenSectors = getChosenSectors(chosenWheel);
             return dmPsych.spinner(c, spinnerData, chosenSectors, targetPressTime, 0, settings.nSpins, scoreTracker);
         },
@@ -382,12 +383,11 @@ const exp = (function() {
         },
         canvas_size: [500, 500],
         show_scoreboard: true,
-        post_trial_gap: 1000,
         data: { heavy: jsPsych.timelineVariable('heavy'), light: jsPsych.timelineVariable('light'), heavy_mi: jsPsych.timelineVariable('heavy_mi'), light_mi: jsPsych.timelineVariable('light_mi'), ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd') },
         on_finish: function(data) {
             scoreTracker = data.score;
             data.time = time;
-            time++l
+            time++;
         },
     };
 
