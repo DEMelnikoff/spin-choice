@@ -13,10 +13,13 @@ const exp = (function() {
 
     let settings = {
         nSpins: 1,
+        choices: [['Heavy', 'Light'], ['Light', 'Heavy']][Math.floor(Math.random() * 2)]
     };
 
     jsPsych.data.addProperties({
         spins_per_wheel: settings.nSpins,
+        left_option: settings.choices[0],
+        right_option: settings.choices[1],
     });
 
     // define each wedge
@@ -48,6 +51,7 @@ const exp = (function() {
 
     let scoreTracker = 0; // track current score
     let scoreTracker_practice = 0; // track current score
+    let time = 1;
 
    /*
     *
@@ -147,14 +151,14 @@ const exp = (function() {
                     {   
                         type:'html',
                         prompt:`<p>Spin the Wheel takes place in multiple rounds.</p>
-                        <p>At the beginning of each round, you'll choose between two wheels: a heavy wheel and a light-weight wheel.</p>
-                        <p>Weight will be the only relevant difference between the two wheels; their average value will always be the same.</p>`
+                        <p>At the beginning of each round, you'll choose between two wheels: a heavy wheel and a light-weight wheel.
+                        Weight will be the only relevant difference between the two wheels; their average value will always be the same.</p>`
                     },
                 ],
                 [
                     {   
                         type:'html',
-                        prompt:`<p>Immediately after each choice, you'll spin your chosen wheel ${settings.nSpins} time. Then, the next round will begin.</p>`
+                        prompt:`<p>After each choice, you'll spin your chosen wheel ${settings.nSpins} time. Then, the next round will begin.</p>`
                     },
                 ],
                 [
@@ -168,7 +172,7 @@ const exp = (function() {
             button_label_finish: 'Next'
         };
 
-        let correctAnswers = [`Earn as many tokens as possible.`, `I'll choose between a heavy wheel and a light-weight wheel.`, `${settings.nSpins}`, `16`];
+        let correctAnswers = [`Earn as many tokens as possible.`, `I'll choose between a heavy wheel and a light-weight wheel.`, `${settings.nSpins}`, `32`];
 
         const attnChk = {
            type: jsPsychSurveyMultiChoice,
@@ -194,7 +198,7 @@ const exp = (function() {
                 {
                     prompt: "<div style='color: rgb(109, 112, 114)'>How many rounds are there?</div>", 
                     name: `attnChk4`, 
-                    options: [`10`, `16`, `20`],
+                    options: [`16`, `32`, `40`],
                 },
             ],
             scale_width: 500,
@@ -342,19 +346,25 @@ const exp = (function() {
             const lightWheel = jsPsych.timelineVariable('light');
             const heavyWheel_img = `<img class="spinner-img" src="./img/${heavyWheel}.png">`;
             const lightWheel_img = `<img class="spinner-img" src="./img/${lightWheel}.png">`;
+            const left_img = (settings.choices[0] == 'Heavy') ? heavyWheel_img : lightWheel_img;
+            const right_img = (settings.choices[1] == 'Heavy') ? heavyWheel_img : lightWheel_img;
             const html = `
             <div class="score-board" style="display: flex; color:black">
-                <div class="score-board-title">Total Score</div>
+                <div class="score-board-title">Total Tokens</div>
                 <div class="score-board-score" id="score" >${scoreTracker}</div>
             </div>
             <div>
-                <div class="spinner-container"><div class="spinner-title">Heavy</div>${heavyWheel_img}</div>
-                <div class="spinner-container"><div class="spinner-title">Light</div>${lightWheel_img}</div>
+                <div class="spinner-container"><div class="spinner-title">${settings.choices[0]}</div>${left_img}</div>
+                <div class="spinner-container"><div class="spinner-title">${settings.choices[1]}</div>${right_img}</div>
             </div>`;
             return html;
         },
-        choices: ['Heavy', 'Light'],
+        choices: settings.choices,
         prompt: 'Choose a wheel to spin.',
+        data: { heavy: jsPsych.timelineVariable('heavy'), light: jsPsych.timelineVariable('light'), heavy_mi: jsPsych.timelineVariable('heavy_mi'), light_mi: jsPsych.timelineVariable('light_mi'), ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd') },
+        on_finish: function(data) {
+            data.time = time;
+        }
     };
 
     const spin = {
@@ -372,8 +382,11 @@ const exp = (function() {
         canvas_size: [500, 500],
         show_scoreboard: true,
         post_trial_gap: 1000,
+        data: { heavy: jsPsych.timelineVariable('heavy'), light: jsPsych.timelineVariable('light'), heavy_mi: jsPsych.timelineVariable('heavy_mi'), light_mi: jsPsych.timelineVariable('light_mi'), ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd') }
         on_finish: function(data) {
             scoreTracker = data.score;
+            data.time = time;
+            time++l
         },
     };
 
