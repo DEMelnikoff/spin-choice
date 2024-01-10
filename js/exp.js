@@ -12,17 +12,11 @@ const exp = (function() {
     let p = {};
 
     let settings = {
-        nSpins: 2,
-        effortOrder: ['highEffort_first', 'highEffort_second'][Math.floor(Math.random() * 2)],
-        miOrder: ['highMI_first', 'highMI_second'][Math.floor(Math.random() * 2)],
+        nSpins: 1,
     };
-
-    console.log(settings.effortOrder, settings.miOrder)
 
     jsPsych.data.addProperties({
         spins_per_wheel: settings.nSpins,
-        effort_order: settings.effortOrder,
-        mi_order: settings.miOrder,
     });
 
     // define each wedge
@@ -70,8 +64,7 @@ const exp = (function() {
                     prompt:`<p><b>Welcome!</b></p>
                     <p>During this survey, you'll be competing for a chance to win a <b>$100.00 bonus prize</b>.
                     Specifically, you'll play a game called <b>Spin the Wheel</b>. During the game, you'll earn tokens. The tokens you earn will be entered into a lottery, and if one of your tokens is drawn, you'll win $100.00.</p>
-                    <p>To maximize your chances of winning a $100.00 bonus, you'll need to earn as many tokens as possible. Continue to learn how to earn tokens!</p>
-                    </div>`
+                    <p>To maximize your chances of winning a $100.00 bonus, you'll need to earn as many tokens as possible. Continue to learn how to earn tokens!</p>`
                 },
             ],
             [
@@ -115,8 +108,7 @@ const exp = (function() {
                 {   
                     type:'html',
                     prompt:`<p>Great job!</p>
-                    <p>Now that you know how to spin heavy wheels, you'll learn how to spin light-weight wheels.</p>
-                    </div>`
+                    <p>Now that you know how to spin heavy wheels, you'll learn how to spin light-weight wheels.</p>`
                 },
             ],
             [
@@ -141,8 +133,7 @@ const exp = (function() {
                     {   
                         type:'html',
                         prompt:`<p>Great job!</p>
-                        <p>Soon, you'll start earning tokens by playing Spin the Wheel.</p>
-                        </div>`
+                        <p>Soon, you'll start earning tokens by playing Spin the Wheel.</p>`
                     },
                 ],
             ],
@@ -156,13 +147,23 @@ const exp = (function() {
                     {   
                         type:'html',
                         prompt:`<p>Spin the Wheel takes place in multiple rounds.</p>
-                        <p>At the beginning of each round, you'll choose between two wheels: a heavy wheel and a light-weight wheel. Then, you'll spin your chosen wheel ${settings.nSpins} times. After ${settings.nSpins} spins, the next round will begin.</p>
-                        <p>There are a total of 16 rounds. Therefore, you'll have 16 opportunities to choose between a heavy wheel and a light-weight wheel.</p>
-                        <p>Throughout the game, your total earnings will be displayed at the top of the screen.</p>
-                        </div>`
+                        <p>At the beginning of each round, you'll choose between two wheels: a heavy wheel and a light-weight wheel.</p>
+                        <p>Weight will be the only relevant difference between the two wheels; their average value will always be the same.</p>`
                     },
                 ],
-
+                [
+                    {   
+                        type:'html',
+                        prompt:`<p>Immediately after each choice, you'll spin your chosen wheel ${settings.nSpins} time. Then, the next round will begin.</p>`
+                    },
+                ],
+                [
+                    {   
+                        type:'html',
+                        prompt:`<p>There are 32 rounds in total. Therefore, you'll have 32 opportunities to earn tokens.</p>
+                        <p>Your total earnings will be displayed at the top of your screen throughout the game.</p>`
+                    },
+                ],
             ],
             button_label_finish: 'Next'
         };
@@ -188,7 +189,7 @@ const exp = (function() {
                 {
                     prompt: "<div style='color: rgb(109, 112, 114)'>After each choice, how many times will you spin your chosen wheel?</div>", 
                     name: `attnChk3`, 
-                    options: [`${settings.nSpins - 1}`, `${settings.nSpins}`, `${settings.nSpins + 1}`],
+                    options: [`${settings.nSpins}`, `${settings.nSpins + 1}`, `${settings.nSpins + 2}`],
                 },
                 {
                     prompt: "<div style='color: rgb(109, 112, 114)'>How many rounds are there?</div>", 
@@ -376,126 +377,6 @@ const exp = (function() {
         },
     };
 
-
-   /*
-    *
-    *   DVs
-    *
-    */
-
-    // scales
-    var zeroToExtremely = ['0<br>A little', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10<br>Extremely'];
-    var zeroToALot = ['0<br>A little', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10<br>A lot'];
-
-    // constructor functions
-    function MakeFlowQs(round) {
-        this.type = jsPsychSurveyLikert;
-        this.preamble = `<div style='padding-top: 50px; width: 850px; font-size:16px; color:rgb(109, 112, 114)'>
-
-        <p>Thank you for completing Round ${round} of Spin the Wheel!</p>
-
-        <p>During Round ${round}, to what extent did you feel immersed and engaged in what you were doing?<br>
-        Report the degree to which you felt immersed and engaged by answering the following questions.</p></div>`;
-        this.questions = [
-            {
-                prompt: `<div style='color:rgb(109, 112, 114)'>During Round ${round}, how <strong>absorbed</strong> did you feel in what you were doing?</div>`,
-                name: `absorbed`,
-                labels: ["0<br>Not very absorbed", '1', '2', '3', '4', '5', '6', '7', '8', '9', "10<br>More absorbed than I've ever felt"],
-                required: true,
-            },
-            {
-                prompt: `<div style='color:rgb(109, 112, 114)'>During Round ${round}, how <strong>immersed</strong> did you feel in what you were doing?</div>`,
-                name: `immersed`,
-                labels: ["0<br>Not very immersed", '1', '2', '3', '4', '5', '6', '7', '8', '9', "10<br>More immersed than I've ever felt"],
-                required: true,
-            },
-            {
-                prompt: `<div style='color:rgb(109, 112, 114)'>During Round ${round}, how <strong>engaged</strong> did you feel in what you were doing?</div>`,
-                name: `engaged`,
-                labels: ["0<br>Not very engaged", '1', '2', '3', '4', '5', '6', '7', '8', '9', "10<br>More engaged than I've ever felt"],
-                required: true,
-            },
-            {
-                prompt: `<div style='color:rgb(109, 112, 114)'>During Round ${round}, how <strong>engrossed</strong> did you feel in what you were doing?</div>`,
-                name: `engrossed`,
-                labels: ["0<br>Not very engrossed", '1', '2', '3', '4', '5', '6', '7', '8', '9', "10<br>More engrossed than I've ever felt"],
-                required: true,
-            },
-        ];
-        this.randomize_question_order = false;
-        this.scale_width = 800;
-        this.data = {round: round , mi: jsPsych.timelineVariable('mi'), targetPressTime: jsPsych.timelineVariable('targetPressTime'), sectors: jsPsych.timelineVariable('sectors'), ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd')};
-        this.on_finish = (data) => {
-            dmPsych.saveSurveyData(data);
-        };
-    };
-
-    function MakeEnjoyQs(round) {
-        this.type = jsPsychSurveyLikert;
-        this.preamble = `<div style='padding-top: 50px; width: 850px; font-size:16px; color:rgb(109, 112, 114)'>
-
-        <p>Below are a few more questions about Round ${round} of Spin the Wheel.</p>
-
-        <p>Instead of asking about immersion and engagement, these questions ask about <strong>enjoyment</strong>.<br>
-        Report how much you <strong>enjoyed</strong> Round ${round} by answering the following questions.</p></div>`;
-        this.questions = [
-            {
-                prompt: `<div style='color:rgb(109, 112, 114)'>How much did you <strong>enjoy</strong> playing Round ${round}?</div>`,
-                name: `enjoyable`,
-                labels: zeroToALot,
-                required: true,
-            },
-            {
-                prompt: `<div style='color:rgb(109, 112, 114)'>How much did you <strong>like</strong> playing Round ${round}?</div>`,
-                name: `like`,
-                labels: zeroToALot,
-                required: true,
-            },
-            {
-                prompt: `<div style='color:rgb(109, 112, 114)'>How much did you <strong>dislike</strong> playing Round ${round}?</div>`,
-                name: `dislike`,
-                labels: zeroToALot,
-                required: true,
-            },
-            {
-                prompt: `<div style='color:rgb(109, 112, 114)'>How much <strong>fun</strong> did you have playing Round ${round}?</div>`,
-                name: `fun`,
-                labels: zeroToALot,
-                required: true,
-            },
-            {
-                prompt: `<div style='color:rgb(109, 112, 114)'>How <strong>entertaining</strong> was Round ${round}?</div>`,
-                name: `entertaining`,
-                labels: zeroToExtremely,
-                required: true,
-            },
-        ];
-        this.randomize_question_order = false;
-        this.scale_width = 800;
-        this.data = {round: round, mi: jsPsych.timelineVariable('mi'), targetPressTime: jsPsych.timelineVariable('targetPressTime'), sectors: jsPsych.timelineVariable('sectors'), ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd')};
-        this.on_finish = (data) => {
-            dmPsych.saveSurveyData(data);
-        };
-    };
-
-    function MakeEffortQs(round) {
-        this.type = jsPsychSurveyLikert;
-        this.questions = [
-            {
-                prompt: `<div style='color:rgb(109, 112, 114)'>While playing Round ${round} of Spin the Wheel,<br>how much effort did it feel like you were exerting?</div>`,
-                name: `effort`,
-                labels: zeroToALot,
-                required: true,
-            },
-        ];
-        this.randomize_question_order = false;
-        this.scale_width = 500;
-        this.data = {round: round, mi: jsPsych.timelineVariable('mi'), targetPressTime: jsPsych.timelineVariable('targetPressTime'), sectors: jsPsych.timelineVariable('sectors'), ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd')};
-        this.on_finish = (data) => {
-            dmPsych.saveSurveyData(data);      
-        };
-    };
-
    /*
     *
     *   TIMELINES
@@ -506,6 +387,7 @@ const exp = (function() {
         timeline: [choice, spin],
         timeline_variables: stimuli,
         randomize_order: true,
+        repetitions: 2,
     };
 
     p.heavyPractice = new MakePracticeWheel('heavy');
@@ -531,90 +413,13 @@ const exp = (function() {
                 console.log(scoreArray);
                 let totalScore = scoreArray[scoreArray.length - 1];
                 return [`<div class='parent' style='color: rgb(109, 112, 114)'>
-                    <p>Spin the Wheel is now complete! You won a total of <strong>${totalScore}</strong> points!</p>
+                    <p>Spin the Wheel is now complete! You won a total of <strong>${totalScore}</strong> tokens!</p>
                     <p>To finish this study, please continue to answer a few final questions.</p>
                     </div>`];
             },  
             show_clickable_nav: true,
             post_trial_gap: 500,
             allow_keys: false,
-        };
-
-        const meanOfEffScale = ['-2<br>Strongly<br>Disagree', '-1<br>Disagree', '0<br>Neither agree<br>nor disagree', '1<br>Agree', '2<br>Strongly<br>Agree'];
-
-        const meanOfEff = {
-            type: jsPsychSurveyLikert,
-            preamble:
-                `<div style='padding-top: 50px; width: 900px; font-size:16px; color: rgb(109, 112, 114)'>
-                    <p><strong>Please answer the following questions as honestly and accurately as possible.</strong></p>
-                </div>`,
-            questions: [
-                {
-                    prompt: `Pushing myself helps me see the bigger picture.`,
-                    name: `meanOfEff_1`,
-                    labels: meanOfEffScale,
-                    required: true,
-                },
-                {
-                    prompt: `I often don't understand why I am working so hard.`,
-                    name: `meanOfEff_2r`,
-                    labels: meanOfEffScale,
-                    required: true,
-                },
-                {
-                    prompt: `I learn the most about myself when I am trying my hardest.`,
-                    name: `meanOfEff_3`,
-                    labels: meanOfEffScale,
-                    required: true,
-                },
-                {
-                    prompt: `Things make more sense when I can put my all into them.`,
-                    name: `meanOfEff_4`,
-                    labels: meanOfEffScale,
-                    required: true,
-                },
-                {
-                    prompt: `When I work hard, it rarely makes a difference.`,
-                    name: `meanOfEff_5r`,
-                    labels: meanOfEffScale,
-                    required: true,
-                },
-                {
-                    prompt: `When I push myself, what I'm doing feels important.`,
-                    name: `meanOfEff_6`,
-                    labels: meanOfEffScale,
-                    required: true,
-                },
-                {
-                    prompt: `When I push myself, I feel like I'm part of something bigger than me.`,
-                    name: `meanOfEff_7`,
-                    labels: meanOfEffScale,
-                    required: true,
-                },
-                {
-                    prompt: `Doing my best gives me a clear purpose in life.`,
-                    name: `meanOfEff_8`,
-                    labels: meanOfEffScale,
-                    required: true,
-                },
-                {
-                    prompt: `When I try my hardest, my life has meaning.`,
-                    name: `meanOfEff_9`,
-                    labels: meanOfEffScale,
-                    required: true,
-                },
-                {
-                    prompt: `When I exert myself, I feel connected to my ideal life.`,
-                    name: `meanOfEff_10`,
-                    labels: meanOfEffScale,
-                    required: true,
-                },
-            ],
-            randomize_question_order: false,
-            scale_width: 500,
-            on_finish: (data) => {
-                dmPsych.saveSurveyData(data); 
-            },
         };
 
         const gender = {
