@@ -370,8 +370,9 @@ const exp = (function() {
     const spin = {
         type: jsPsychCanvasButtonResponse,
         stimulus: function(c, spinnerData) {
-            const chosenWheel = (jsPsych.data.getLastTrialData().select('response').values[0] == 0) ? jsPsych.timelineVariable('heavy') : jsPsych.timelineVariable('light');
-            const targetPressTime = (jsPsych.data.getLastTrialData().select('response').values[0] == 0) ? [0, .2] : [.2, .75];
+            const choiceIdx = jsPsych.data.getLastTrialData().select('response').values[0];
+            const chosenWheel = (settings.choices[choiceIdx] == 'Heavy') ? jsPsych.timelineVariable('heavy') : jsPsych.timelineVariable('light');
+            const targetPressTime = (settings.choices[choiceIdx] == 'Heavy') ? [0, .2] : [.2, .75];
             const chosenSectors = getChosenSectors(chosenWheel);
             return dmPsych.spinner(c, spinnerData, chosenSectors, targetPressTime, 0, settings.nSpins, scoreTracker);
         },
