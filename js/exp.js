@@ -66,22 +66,21 @@ const exp = (function() {
                 {   
                     type:'html',
                     prompt:`<p><b>Welcome!</b></p>
-                    <p>During this survey, you'll be competing for a chance to win a <b>$100.00 bonus prize</b>.
-                    Specifically, you'll play a game called <b>Spin the Wheel</b>. During the game, you'll earn tokens. The tokens you earn will be entered into a lottery, and if one of your tokens is drawn, you'll win $100.00.</p>
-                    <p>To maximize your chances of winning a $100.00 bonus, you'll need to earn as many tokens as possible. Continue to learn how to earn tokens!</p>`
+                    <p>During this survey, you'll be playing a game called <b>Spin the Wheel</b>. The goal of the game is to earn as many points as possible.</p>
+                    <p>Continue to learn how to earn points!</p>`
                 },
             ],
             [
                 {
                     type: 'html',
-                    prompt: `<p>To earn tokens, you'll spin prize wheels like this one:</p>
+                    prompt: `<p>To earn points, you'll spin prize wheels like this one:</p>
                     <img class="spinner-img" style="display:block; margin:auto" src="./img/02040610.png">`
                 },
             ],
             [
                 {
                     type: 'html',
-                    prompt: `<p>The number of tokens you earn for each spin depends on where the wheel lands. For example, if a wheel lands on a 4, you'll earn 4 tokens.</p>
+                    prompt: `<p>The number of points you earn for each spin depends on where the wheel lands. For example, if a wheel lands on a 4, you'll earn 4 points.</p>
                     <img class="spinner-img" style="display:block; margin:auto" src="./img/02040610.png">`
                 },
             ],
@@ -137,7 +136,7 @@ const exp = (function() {
                     {   
                         type:'html',
                         prompt:`<p>Great job!</p>
-                        <p>Soon, you'll start earning tokens by playing Spin the Wheel.</p>`
+                        <p>Soon, you'll start earning points by playing Spin the Wheel.</p>`
                     },
                 ],
             ],
@@ -164,7 +163,7 @@ const exp = (function() {
                 [
                     {   
                         type:'html',
-                        prompt:`<p>There are 32 rounds in total. Therefore, you'll have 32 opportunities to earn tokens.</p>
+                        prompt:`<p>There are 32 rounds in total. Therefore, you'll have 32 opportunities to earn points.</p>
                         <p>Your total earnings will be displayed at the top of your screen throughout the game.</p>`
                     },
                 ],
@@ -172,7 +171,7 @@ const exp = (function() {
             button_label_finish: 'Next'
         };
 
-        let correctAnswers = [`Earn as many tokens as possible.`, `I'll choose between a heavy wheel and a light-weight wheel.`, `${settings.nSpins}`, `32`];
+        let correctAnswers = [`Earn as many points as possible.`, `I'll choose between a heavy wheel and a light-weight wheel.`, `${settings.nSpins}`, `32`];
 
         const attnChk = {
            type: jsPsychSurveyMultiChoice,
@@ -183,7 +182,7 @@ const exp = (function() {
                 {
                     prompt: "<div style='color: rgb(109, 112, 114)'>What is the goal of Spin the Wheel?</div>", 
                     name: `attnChk1`, 
-                    options: [`Earn as many tokens as possible.`, `Spin the wheel as fast as possible.`],
+                    options: [`Earn as many points as possible.`, `Spin the wheel as fast as possible.`],
                 },
                 {
                     prompt: "<div style='color: rgb(109, 112, 114)'>At the beginning of each round...</div>", 
@@ -245,8 +244,7 @@ const exp = (function() {
                 [
                     {
                         type: 'html',
-                        prompt: `<p>You're now ready to play Spin the Wheel.</p>
-                        <p>Remember: The more tokens you earn, the better your chances of winning a <b>$100.00</b> bonus!</p>`
+                        prompt: `<p>You're now ready to play Spin the Wheel.</p>`
                     },
                 ],
 
@@ -350,7 +348,7 @@ const exp = (function() {
             const right_img = (settings.choices[1] == 'Heavy') ? heavyWheel_img : lightWheel_img;
             const html = `
             <div class="score-board" style="display: flex; color:black">
-                <div class="score-board-title">Total Tokens</div>
+                <div class="score-board-title">Total Points</div>
                 <div class="score-board-score" id="score" >${scoreTracker}</div>
             </div>
             <div>
@@ -365,7 +363,6 @@ const exp = (function() {
         on_finish: function(data) {
             data.time = time;
             data.choice = settings.choices[data.response];
-            console.log(settings.choices[data.response]);
         }
     };
 
@@ -427,7 +424,7 @@ const exp = (function() {
                 console.log(scoreArray);
                 let totalScore = scoreArray[scoreArray.length - 1];
                 return [`<div class='parent' style='color: rgb(109, 112, 114)'>
-                    <p>Spin the Wheel is now complete! You won a total of <strong>${totalScore}</strong> tokens!</p>
+                    <p>Spin the Wheel is now complete! You won a total of <strong>${totalScore}</strong> points!</p>
                     <p>To finish this study, please continue to answer a few final questions.</p>
                     </div>`];
             },  
