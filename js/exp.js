@@ -26,13 +26,13 @@ const exp = (function() {
     const wedges = [
         {color:"grey", label:"0"},
         {color:"#fe0000", label:"1"},
-        {color:"#800001", label:"2"},
+        {color:"#00497e", label:"2"},
         {color:"#fe6a00", label:"3"},
         {color:"#803400", label:"4"},
         {color:"#0094fe", label:"5"},
-        {color:"#806b00", label:"6"},
+        {color:"#001280", label:"6"},
         {color:"#228B22", label:"7"},
-        {color:"#007f0e", label:"8"},
+        {color:"#b100fe", label:"8"},
         {color:"#ffd800", label:"9"},
         {color:"#00497e", label:"10"},
         {color:"#0026ff", label:"11"},
@@ -319,22 +319,22 @@ const exp = (function() {
 
 
     const stimuli = [
-        { heavy: '01030609', light: '03030310', heavy_mi: 2, light_mi: .81, ev: 4.75, sd: 3.5},
-        { heavy: '02040710', light: '04040411', heavy_mi: 2, light_mi: .81, ev: 5.75, sd: 3.5},
-        { heavy: '04071012', light: '03101010', heavy_mi: 2, light_mi: .81, ev: 8.25, sd: 3.5},
-        { heavy: '05081113', light: '04111111', heavy_mi: 2, light_mi: .81, ev: 9.25, sd: 3.5},
-        { heavy: '03030310', light: '01030609', heavy_mi: .81, light_mi: 2, ev: 4.75, sd: 3.5},
-        { heavy: '04040411', light: '02040710', heavy_mi: .81, light_mi: 2, ev: 5.75, sd: 3.5},
-        { heavy: '03101010', light: '04071012', heavy_mi: .81, light_mi: 2, ev: 8.25, sd: 3.5},
-        { heavy: '04111111', light: '05081113', heavy_mi: .81, light_mi: 2, ev: 9.25, sd: 3.5},
-        { heavy: '04040412', light: '00080808', heavy_mi: .81, light_mi: .81, ev: 6, sd: 4},
-        { heavy: '00080808', light: '04040412', heavy_mi: .81, light_mi: .81, ev: 6, sd: 4},
-        { heavy: '05050513', light: '01090909', heavy_mi: .81, light_mi: .81, ev: 7, sd: 4},
-        { heavy: '01090909', light: '05050513', heavy_mi: .81, light_mi: .81, ev: 7, sd: 4},
-        { heavy: '02040610', light: '01050709', heavy_mi: 2, light_mi: 2, ev: 5.5, sd: 3.42},
-        { heavy: '01050709', light: '02040610', heavy_mi: 2, light_mi: 2, ev: 5.5, sd: 3.42},
-        { heavy: '03050711', light: '02060810', heavy_mi: 2, light_mi: 2, ev: 6.5, sd: 3.42},
-        { heavy: '02060810', light: '03050711', heavy_mi: 2, light_mi: 2, ev: 6.5, sd: 3.42},
+        { heavy: '02030405', light: '02020505', heavy_mi: 2, light_mi: 1, heavy_pe: 1, light_pe: 1.5, ev: 3.5 },
+        { heavy: '02030405', light: '03030404', heavy_mi: 2, light_mi: 1, heavy_pe: 1, light_pe: 0.5, ev: 3.5 },
+        { heavy: '05060708', light: '05050808', heavy_mi: 2, light_mi: 1, heavy_pe: 1, light_pe: 1.5, ev: 6.5 },
+        { heavy: '05060708', light: '06060707', heavy_mi: 2, light_mi: 1, heavy_pe: 1, light_pe: 0.5, ev: 6.5 },
+        { heavy: '02020505', light: '02030405', heavy_mi: 1, light_mi: 2, heavy_pe: 1.5, light_pe: 1, ev: 3.5 },
+        { heavy: '03030404', light: '02030405', heavy_mi: 1, light_mi: 2, heavy_pe: 0.5, light_pe: 1, ev: 3.5 },
+        { heavy: '05050808', light: '05060708', heavy_mi: 1, light_mi: 2, heavy_pe: 1.5, light_pe: 1, ev: 6.5 },
+        { heavy: '06060707', light: '05060708', heavy_mi: 1, light_mi: 2, heavy_pe: 0.5, light_pe: 1, ev: 6.5 },
+        { heavy: '02020505', light: '03030404', heavy_mi: 1, light_mi: 1, heavy_pe: 1.5, light_pe: 0.5, ev: 3.5 },
+        { heavy: '05050808', light: '06060707', heavy_mi: 1, light_mi: 1, heavy_pe: 1.5, light_pe: 0.5, ev: 6.5 },
+        { heavy: '03030404', light: '02020505', heavy_mi: 1, light_mi: 1, heavy_pe: 0.5, light_pe: 1.5, ev: 3.5 },
+        { heavy: '06060707', light: '05050808', heavy_mi: 1, light_mi: 1, heavy_pe: 0.5, light_pe: 1.5, ev: 6.5 },
+        { heavy: '02030405', light: '01030406', heavy_mi: 2, light_mi: 2, heavy_pe: 1, light_pe: 1.5, ev: 3.5 },
+        { heavy: '05060708', light: '04060709', heavy_mi: 2, light_mi: 2, heavy_pe: 1, light_pe: 1.5, ev: 6.5 },
+        { heavy: '01030406', light: '02030405', heavy_mi: 2, light_mi: 2, heavy_pe: 1.5, light_pe: 1, ev: 3.5 },
+        { heavy: '04060709', light: '05060708', heavy_mi: 2, light_mi: 2, heavy_pe: 1.5, light_pe: 1, ev: 6.5 },
     ];
 
     const choice = {
@@ -359,7 +359,7 @@ const exp = (function() {
         },
         choices: settings.choices,
         prompt: 'Choose a wheel to spin.',
-        data: { heavy: jsPsych.timelineVariable('heavy'), light: jsPsych.timelineVariable('light'), heavy_mi: jsPsych.timelineVariable('heavy_mi'), light_mi: jsPsych.timelineVariable('light_mi'), ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd') },
+        data: { heavy: jsPsych.timelineVariable('heavy'), light: jsPsych.timelineVariable('light'), heavy_mi: jsPsych.timelineVariable('heavy_mi'), light_mi: jsPsych.timelineVariable('light_mi'), heavy_pe: jsPsych.timelineVariable('heavy_pe'), light_pe: jsPsych.timelineVariable('light_pe'),  ev: jsPsych.timelineVariable('ev') },
         on_finish: function(data) {
             data.time = time;
             data.choice = settings.choices[data.response];
@@ -380,7 +380,8 @@ const exp = (function() {
         },
         canvas_size: [500, 500],
         show_scoreboard: true,
-        data: { heavy: jsPsych.timelineVariable('heavy'), light: jsPsych.timelineVariable('light'), heavy_mi: jsPsych.timelineVariable('heavy_mi'), light_mi: jsPsych.timelineVariable('light_mi'), ev: jsPsych.timelineVariable('ev'), sd: jsPsych.timelineVariable('sd') },
+        trial_duration: 8000,
+        data: { heavy: jsPsych.timelineVariable('heavy'), light: jsPsych.timelineVariable('light'), heavy_mi: jsPsych.timelineVariable('heavy_mi'), light_mi: jsPsych.timelineVariable('light_mi'), heavy_pe: jsPsych.timelineVariable('heavy_pe'), light_pe: jsPsych.timelineVariable('light_pe'),  ev: jsPsych.timelineVariable('ev') },
         on_finish: function(data) {
             scoreTracker = data.score;
             data.time = time;
