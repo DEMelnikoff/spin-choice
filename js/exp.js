@@ -380,7 +380,6 @@ const exp = (function() {
         },
         canvas_size: [500, 500],
         show_scoreboard: true,
-        trial_duration: 8000,
         data: { heavy: jsPsych.timelineVariable('heavy'), light: jsPsych.timelineVariable('light'), heavy_mi: jsPsych.timelineVariable('heavy_mi'), light_mi: jsPsych.timelineVariable('light_mi'), heavy_pe: jsPsych.timelineVariable('heavy_pe'), light_pe: jsPsych.timelineVariable('light_pe'),  ev: jsPsych.timelineVariable('ev') },
         on_finish: function(data) {
             scoreTracker = data.score;
