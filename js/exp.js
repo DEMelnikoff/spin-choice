@@ -163,7 +163,7 @@ const exp = (function() {
                 [
                     {   
                         type:'html',
-                        prompt:`<p>There are 32 rounds in total. Therefore, you'll have 32 opportunities to earn points.</p>
+                        prompt:`<p>There are 36 rounds in total. Therefore, you'll have 36 opportunities to earn points.</p>
                         <p>Your total earnings will be displayed at the top of your screen throughout the game.</p>`
                     },
                 ],
@@ -171,7 +171,7 @@ const exp = (function() {
             button_label_finish: 'Next'
         };
 
-        let correctAnswers = [`Earn as many points as possible.`, `I'll choose between a heavy wheel and a light-weight wheel.`, `${settings.nSpins}`, `32`];
+        let correctAnswers = [`Earn as many points as possible.`, `I'll choose between a heavy wheel and a light-weight wheel.`, `${settings.nSpins}`, `36`];
 
         const attnChk = {
            type: jsPsychSurveyMultiChoice,
@@ -197,7 +197,7 @@ const exp = (function() {
                 {
                     prompt: "<div style='color: rgb(109, 112, 114)'>How many rounds are there?</div>", 
                     name: `attnChk4`, 
-                    options: [`16`, `32`, `40`],
+                    options: [`16`, `36`, `40`],
                 },
             ],
             scale_width: 500,
