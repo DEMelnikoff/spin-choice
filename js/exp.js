@@ -537,7 +537,7 @@ const exp = (function() {
             randomize_question_order: false,
             scale_width: 500,
             on_finish: (data) => {
-                saveSurveyData(data); 
+                dmPsych.saveSurveyData(data); 
             },
         };
 
