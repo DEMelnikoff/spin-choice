@@ -202,9 +202,7 @@ const exp = (function() {
             ],
             scale_width: 500,
             on_finish: (data) => {
-                console.log(data)
                 const totalErrors = dmPsych.getTotalErrors(data, correctAnswers);
-                console.log(totalErrors)
                 data.totalErrors = totalErrors;
             },
         };
@@ -434,7 +432,6 @@ const exp = (function() {
             type: jsPsychInstructions,
             pages: function () { 
                 let scoreArray = jsPsych.data.get().select('score').values;
-                console.log(scoreArray);
                 let totalScore = scoreArray[scoreArray.length - 1];
                 return [`<div class='parent' style='color: rgb(109, 112, 114)'>
                     <p>Spin the Wheel is now complete! You won a total of <strong>${totalScore}</strong> points!</p>
